@@ -1,6 +1,6 @@
 require 'active_support/inflector'
 
-Pry::Commands.create_command "define-it", "Commands for code generation reported during a Pry session for use in TDD" do
+Pry::Commands.create_command "define-it", "Generates a class template on a NameError, or a method template on a NoMethodError" do
 
   def process
     last_exception = context[:pry_instance].last_exception
