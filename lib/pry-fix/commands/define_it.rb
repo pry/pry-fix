@@ -1,6 +1,7 @@
 require 'active_support/inflector'
 
-Pry::Commands.create_command "define-it", "Generates a class template on a NameError, or a method template on a NoMethodError" do
+PryFix::Commands.create_command "define-it" do
+  description "Generates a class template on a NameError, or a method template on a NoMethodError"
 
   def process
     last_exception = context[:pry_instance].last_exception
@@ -12,7 +13,7 @@ Pry::Commands.create_command "define-it", "Generates a class template on a NameE
       File.open(file, 'w') { |f| f.write(code) }
 
       silence_warnings do
-        TOPLEVEL_BINDING.eval(File.read(file), file)                                                                                                     
+        TOPLEVEL_BINDING.eval(File.read(file), file)
       end
 
       throw :try_again
@@ -28,7 +29,7 @@ Pry::Commands.create_command "define-it", "Generates a class template on a NameE
 
       lines = File.readlines(file).size
       code  = File.read(file).gsub(/^end/mi) { |match| "#{method_def}\n\n#{match}" }
-      
+
       File.open(file, 'w') { |f| f.write(code) }
 
       run "edit -r -l #{lines+1} #{file}"

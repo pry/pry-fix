@@ -1,2 +1,3 @@
-require 'pry-fix/define_it'
-require 'pry-fix/replace_it'
+require 'pry'
+require 'pry-fix/version'
+require 'pry-fix/commands'
